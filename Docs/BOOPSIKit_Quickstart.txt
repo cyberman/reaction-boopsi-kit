@@ -1,1 +1,70 @@
+BOOPSIKit Quickstart (v0.1)
+===========================
+
+Goal
+----
+Build a BOOPSI gadget class with less boilerplate, strict ANSI C89,
+AmigaOS 3.2.3 (NDK 3.2R4) baseline.
+
+BOOPSIKit is NOT a framework. It only provides:
+- tag apply helpers
+- changed masks
+- clamp/bool helpers
+- a small instance header convention
+
+1) Public API (tags/enums)
+--------------------------
+Create include/<name>_gadget.h with:
+- TAG base (TAG_USER + unique offset)
+- enums (types/modes/states)
+- tag IDs and defaults
+
+2) Instance data convention
+---------------------------
+Your instance data should start with:
+
+  struct BK_InstHeader { ULONG changed; ULONG flags; };
+
+Example:
+
+  struct MyData {
+    struct BK_InstHeader bk;   /* MUST be first */
+    UWORD mode;
+    UWORD state;
+    ULONG r32, g32, b32;
+  };
+
+3) OM_NEW
+---------
+- call DoSuperMethodA() first
+- set defaults
+- apply tags using BK_APPLY_* macros
+- set bk.changed = BK_CHG_ALL to force first render
+
+4) OM_SET
+---------
+- apply tags using BK_APPLY_* (and *_CLAMP variants for enums/ranges)
+- set BK_CHG_GEOM when layout-relevant values change
+- set BK_CHG_COLOR for color changes, BK_CHG_VALUE for content changes
+- avoid “always redraw”: only set changed bits if values actually changed
+
+5) GM_LAYOUT
+------------
+- compute desired width/height
+- keep it simple; use layout.gadget for layout
+- for fixed-size gadgets: just report the fixed size
+
+6) GM_RENDER
+------------
+- draw deterministically inside the gadget box
+- pick pens conservatively (avoid global caches in v0.1)
+- after successful render: clear relevant changed bits
+
+7) Release checklist
+--------------------
+- strict ANSI C89 (no compiler-specific keywords in C)
+- NDK 3.2R4 includes only
+- no global caches/singletons
+- deterministic cleanup
+- ReadMe documents tags, defaults, install path
 
