@@ -1,0 +1,65 @@
+# ------------------------------------------------------------
+# BOOPSIKit / AmigaOS build artifacts (safe defaults)
+# ------------------------------------------------------------
+
+# Object / library / link outputs
+*.o
+*.obj
+*.a
+*.lib
+*.ar
+*.lnk
+*.map
+*.sym
+*.dbg
+*.out
+*.elf
+
+# Amiga binaries / loadable modules (optional)
+# Keep this commented if you want to version binaries/releases in-tree.
+# *.gadget
+# *.library
+# *.device
+# *.handler
+# *.plugin
+
+# Common build directories
+build/
+Build/
+bin/
+Bin/
+obj/
+Obj/
+out/
+Out/
+dist/
+Dist/
+release/
+Release/
+
+# ------------------------------------------------------------
+# Temporary / editor files
+# ------------------------------------------------------------
+*~
+*.bak
+*.tmp
+*.swp
+*.swo
+.#*
+.DS_Store
+Thumbs.db
+
+# ------------------------------------------------------------
+# VSCode / JetBrains / misc
+# ------------------------------------------------------------
+.vscode/
+.idea/
+*.code-workspace
+
+# ------------------------------------------------------------
+# Amiga temp / assigns sometimes mirrored into a tree
+# ------------------------------------------------------------
+T/
+ENV/
+ENVARC/
+
