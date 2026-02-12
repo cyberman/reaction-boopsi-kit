@@ -1,1 +1,33 @@
+Integrating BOOPSIKit (v0.1)
+============================
+
+BOOPSIKit ships no install/uninstall scripts on purpose.
+Every developer uses a different SDK layout.
+
+Option A: Header-only (recommended)
+-----------------------------------
+1) Copy:
+     Developer/Include/boopsikit/boopsi_kit.h
+   into your compiler/SDK include path.
+
+2) In your gadget sources:
+     #include <boopsikit/boopsi_kit.h>
+
+3) Ensure your instance data starts with:
+     struct BK_InstHeader { ULONG changed; ULONG flags; };
+
+4) Use BK_APPLY_* macros in OM_NEW / OM_SET to apply tags and set changed bits.
+
+Option B: Vendor header into your project
+-----------------------------------------
+If you do not want to modify include paths:
+- copy boopsi_kit.h into your project tree (e.g. "deps/boopsikit/")
+- include it via a relative include
+
+Design rules (important)
+------------------------
+- BOOPSIKit is not a framework. It only removes boilerplate.
+- No custom layout system (use layout.gadget).
+- No hidden global caches/singletons.
+- Keep all C sources strict ANSI C89 (no compiler extensions).
 
