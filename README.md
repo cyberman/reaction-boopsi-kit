@@ -50,7 +50,49 @@ BOOPSIKit is a tiny developer-oriented helper kit that standardizes the repetiti
 ## Quickstart (Dev)
 
 ### Option A: Header-only (recommended)
+
 1. Copy `Developer/Include/boopsikit/boopsi_kit.h` into your include path.
 2. In your gadget sources:
-   ```c
-   #include <boopsikit/boopsi_kit.h>
+
+```c
+#include <boopsikit/boopsi_kit.h>
+```
+
+3. Ensure your instance data starts with:
+
+```c
+struct BK_InstHeader { ULONG changed; ULONG flags; };
+```
+
+4. Use `BK_APPLY_*` macros in `OM_NEW` / `OM_SET` to apply tags and set changed bits.
+
+### Option B: Header + drop-in C module
+
+Copy `Developer/Source/boopsikit/boopsi_kit.c` into your project and compile/link it.
+
+---
+
+## Example: lamp.gadget
+
+This repo includes **lamp.gadget** as a reference BOOPSI gadget:
+
+- Display-only status lamp (5×5 .. 9×9)
+- State colors + RGB32 mode
+- ReAction-friendly (embed via `layout.gadget`)
+
+`lamp.gadget` is also intended to be released separately as its own gadget.
+
+---
+
+## Release philosophy
+
+- System-conform AmigaOS 3.2.3 approach
+- Minimal surface area, explicit ownership, deterministic cleanup
+- No “clever” compiler tricks — portability first
+
+---
+
+## License
+
+MIT License. See `License.txt`.
+
